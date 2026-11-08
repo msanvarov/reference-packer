@@ -1,4 +1,4 @@
-# Reference Sheet Kit
+# Reference Packer
 
 **One subject, one sheet.** A small, free tool for getting more consistent video out of ByteDance's Seedance models on [Higgsfield](https://higgsfield.ai). It packs several reference images (front, three-quarter, profile, back, close-ups) into a single clean reference sheet, checks the sheet against the rules that keep characters and products stable, and writes the prompt that tells Seedance what the sheet is.
 
