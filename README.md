@@ -1,6 +1,6 @@
 # Reference Packer
 
-**One subject, one sheet.** A small, free tool for getting more consistent AI video on [Higgsfield](https://higgsfield.ai). It packs several reference images (front, three-quarter, profile, back, close-ups) into a single clean reference sheet, checks the sheet against the rules that keep characters and products stable, and writes the prompt that tells your model what the sheet is. It has presets for Seedance, Kling, Wan, Veo and Gemini Omni.
+**Every angle, one sheet.** A small, free tool for getting more consistent AI video on [Higgsfield](https://higgsfield.ai). It packs several reference images (front, three-quarter, profile, back, close-ups) into a single clean reference sheet, checks the sheet against the rules that keep characters and products stable, and writes the prompt that tells your model what the sheet is. It has presets for Seedance, Kling, Wan, Veo and Gemini Omni.
 
 It's the working example for the guide **[Pack Your References: Getting Higher-Quality Seedance Videos on Higgsfield](https://www.sal-anvarov.com/blog/seedance-reference-sheets-higgsfield)**.
 
