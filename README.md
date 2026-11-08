@@ -4,7 +4,7 @@
 
 It's the working example for the guide **[Pack Your References: Getting Higher-Quality Seedance Videos on Higgsfield](https://www.sal-anvarov.com/blog/seedance-reference-sheets-higgsfield)**.
 
-**Live:** https://seedance-reference-sheets.netlify.app
+**Live:** https://reference-packer.netlify.app
 
 ![A sample reference sheet: six views of one illustrated character on a light grey background](docs/sample-sheet.png)
 
