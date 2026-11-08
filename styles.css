@@ -69,6 +69,10 @@ main { max-width: 1120px; margin: 0 auto; padding: 1.5rem 0.75rem 3rem; }
 .hero { padding: 1rem 0.5rem 1.75rem; }
 .eyebrow { color: var(--brand); font-weight: 600; font-size: 0.85rem; margin: 0 0 0.5rem; }
 .lede { color: var(--muted); max-width: 38rem; margin: 1rem 0 0; font-size: 1.02rem; }
+.model { display: grid; gap: 0.6rem; max-width: 38rem; margin-top: 1.4rem; }
+.model label { display: grid; gap: 0.3rem; font-size: 0.8rem; color: var(--muted); font-weight: 500; max-width: 18rem; }
+.model p { margin: 0; color: var(--fg); opacity: 0.85; }
+.small { font-size: 0.8rem; max-width: 38rem; margin: 0.9rem 0 0; }
 
 .layout { display: grid; gap: 0.75rem; }
 @media (min-width: 900px) {
@@ -128,6 +132,7 @@ select, input:not([type="file"]) {
 }
 input[type="color"] { padding: 4px; }
 select:focus, input:focus { outline: 2px solid var(--brand); outline-offset: 1px; }
+input:disabled { opacity: 0.45; cursor: not-allowed; }
 
 .swatches { display: flex; gap: 0.5rem; margin-top: 0.8rem; }
 .swatches button { width: 36px; height: 36px; border-radius: 50%; border: 0; background: var(--c); box-shadow: inset 0 0 0 1px var(--edge-hi); cursor: pointer; }

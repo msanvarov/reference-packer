@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { buildPrompt, layoutSheet, lintSheet } from '../src/sheet.js';
+import { MODELS, buildPrompt, layoutSheet, lintSheet, slotNote } from '../src/sheet.js';
 
 test('six panels pack into a 3×2 grid like the Python script', () => {
   const sizes = [
@@ -61,4 +61,32 @@ test('prompt maps the tag and states ONE subject', () => {
   assert.match(p, /^@product is a reference sheet of ONE matte-white water bottle/);
   assert.match(p, /Keep the green cap and embossed logo identical/);
   assert.match(p, /Macro dolly-in\. Soft morning light\. 5 seconds\.$/);
+});
+
+test('each model gets its own tag style and a length it supports', () => {
+  const base = { subject: 'character', anchors: 'her short black bob', action: 'She walks', seconds: 7 };
+  const seedance = buildPrompt({ ...base, model: 'seedance-2.0' });
+  assert.match(seedance, /^@character is a reference sheet of ONE person/);
+  assert.match(seedance, /Keep her short black bob identical to the sheet/);
+
+  // Kling: @-tagged Element, look comes from the reference so no anchor line.
+  const kling = buildPrompt({ ...base, model: 'kling-4.0' });
+  assert.match(kling, /^@Character is a reference sheet/);
+  assert.doesNotMatch(kling, /Keep/);
+
+  // Veo: plain language, no tags, and 7 s snaps to a length Veo offers.
+  const veo = buildPrompt({ ...base, model: 'veo-3.1' });
+  assert.doesNotMatch(veo, /@/);
+  assert.match(veo, /^The reference image is a sheet of ONE person/);
+  assert.match(veo, /She walks\. (6|8) seconds\.$/);
+
+  for (const [id, m] of Object.entries(MODELS)) {
+    const secs = Number(buildPrompt({ ...base, model: id }).match(/(\d+) seconds\.$/)[1]);
+    assert.ok(m.durations.includes(secs), `${id} got ${secs}s`);
+  }
+});
+
+test('slot budget shows only where Higgsfield publishes a count', () => {
+  assert.match(slotNote('veo-3.1').text, /1 of 3 image slots on Veo 3\.1, leaving 2/);
+  assert.equal(slotNote('wan-2.6'), null);
 });

@@ -4,14 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#050506" />
-    <title>Reference Packer — one sheet per subject for Seedance</title>
+    <title>Reference Packer — one sheet per subject for AI video</title>
     <meta
       name="description"
-      content="Pack several reference images into one clean sheet for Seedance video on Higgsfield, check it against the rules that keep characters consistent, and build the prompt. Runs entirely in your browser."
+      content="Pack several reference images into one clean sheet for Seedance, Kling, Wan, Veo and Gemini Omni on Higgsfield, check it against the rules that keep characters consistent, and build the prompt for your model. Runs entirely in your browser."
     />
     <link rel="canonical" href="https://reference-packer.netlify.app/" />
-    <meta property="og:title" content="Reference Packer — one sheet per subject for Seedance" />
-    <meta property="og:description" content="One subject, one sheet: pack angles into a single reference, lint it, and build the Seedance prompt. Free, open source, runs in your browser." />
+    <meta property="og:title" content="Reference Packer — one sheet per subject for AI video" />
+    <meta property="og:description" content="One subject, one sheet: pack angles into a single reference, lint it, and build the prompt for Seedance, Kling, Wan, Veo or Gemini Omni. Free, open source, runs in your browser." />
     <meta property="og:type" content="website" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
@@ -23,7 +23,7 @@
         "applicationCategory": "MultimediaApplication",
         "operatingSystem": "Web",
         "offers": { "@type": "Offer", "price": "0" },
-        "description": "Pack several reference images into one sheet for Seedance video generation, lint it, and build the prompt.",
+        "description": "Pack several reference images into one sheet for AI video models on Higgsfield (Seedance, Kling, Wan, Veo, Gemini Omni), lint it, and build the prompt.",
         "author": { "@type": "Person", "name": "Sal Anvarov", "url": "https://www.sal-anvarov.com/" },
         "isBasedOn": "https://www.sal-anvarov.com/blog/seedance-reference-sheets-higgsfield",
         "codeRepository": "https://github.com/msanvarov/reference-packer"
@@ -44,12 +44,39 @@
 
     <main>
       <section class="hero">
-        <p class="eyebrow">For Seedance on Higgsfield</p>
+        <p class="eyebrow">For AI video on Higgsfield</p>
         <h1>One subject. One sheet.</h1>
         <p class="lede">
           Pack every angle of a character, product or place into a single clean reference image.
           It costs one reference slot, keeps lighting and scale consistent, and gives the model the
           whole subject at once. Everything runs in your browser — nothing is uploaded.
+        </p>
+        <div class="model">
+          <label>Model
+            <select id="model">
+              <optgroup label="Seedance">
+                <option value="seedance-2.0" selected>Seedance 2.0</option>
+                <option value="seedance-2.5">Seedance 2.5</option>
+              </optgroup>
+              <optgroup label="Kling">
+                <option value="kling-4.0">Kling 4.0</option>
+                <option value="kling-3.0">Kling 3.0</option>
+              </optgroup>
+              <optgroup label="Wan">
+                <option value="wan-2.6">Wan 2.6</option>
+              </optgroup>
+              <optgroup label="Google">
+                <option value="veo-3.1">Veo 3.1</option>
+                <option value="gemini-omni">Gemini Omni Flash</option>
+              </optgroup>
+            </select>
+          </label>
+          <p class="muted" id="modelNote" aria-live="polite"></p>
+        </div>
+        <p class="muted small">
+          Hailuo, Grok and Kling 2.6 only take a start frame, and a sheet used as a start frame
+          animates the grid itself. For those, make a still from the sheet with an image model
+          first, then animate that still.
         </p>
       </section>
 
@@ -116,13 +143,13 @@
 
         <section class="tile wide" aria-labelledby="prompt-h">
           <h2 id="prompt-h">4 · Prompt</h2>
-          <p class="muted">Tell Seedance what the sheet is — one subject, several angles — then describe the shot.</p>
+          <p class="muted">Tell the model what the sheet is — one subject, several angles — then describe the shot.</p>
           <div class="fields prompt-fields">
             <label>Sheet shows a
               <select id="subject">
-                <option value="character">Character (@character)</option>
-                <option value="product">Product (@product)</option>
-                <option value="environment">Location (@style)</option>
+                <option value="character">Character</option>
+                <option value="product">Product</option>
+                <option value="environment">Location</option>
               </select>
             </label>
             <label>Who / what
@@ -141,9 +168,7 @@
               <input id="light" placeholder="Cool blue light with warm signage reflections" />
             </label>
             <label>Length
-              <select id="seconds">
-                <option>4</option><option>5</option><option selected>6</option><option>8</option><option>10</option>
-              </select>
+              <select id="seconds"></select>
             </label>
           </div>
           <pre class="prompt" id="prompt"></pre>
@@ -159,7 +184,7 @@
         <a href="https://github.com/msanvarov/reference-packer">Source (MIT)</a> ·
         Studio: <a href="https://by-sal.dev">DEV BY SAL</a>
       </p>
-      <p class="muted">Not affiliated with ByteDance or Higgsfield. Check current reference limits in the Higgsfield app.</p>
+      <p class="muted">Not affiliated with Higgsfield or any model maker. Limits change often; check them in the Higgsfield app.</p>
     </footer>
 
     <script type="module" src="src/app.js"></script>

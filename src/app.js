@@ -1,4 +1,4 @@
-import { buildPrompt, layoutSheet, lintSheet } from './sheet.js';
+import { MODELS, buildPrompt, layoutSheet, lintSheet, slotNote } from './sheet.js';
 import { samplePanels } from './samples.js';
 
 const $ = (id) => document.getElementById(id);
@@ -85,7 +85,8 @@ function renderSheet() {
 }
 
 function renderLint(sheet) {
-  const items = panels.length ? lintSheet(panels, sheet) : [];
+  const slots = slotNote($('model').value);
+  const items = panels.length ? [...lintSheet(panels, sheet), ...(slots ? [slots] : [])] : [];
   $('lint').replaceChildren(
     ...items.map((r) => {
       const li = document.createElement('li');
@@ -98,6 +99,7 @@ function renderLint(sheet) {
 
 function renderPrompt() {
   $('prompt').textContent = buildPrompt({
+    model: $('model').value,
     subject: $('subject').value,
     description: $('description').value || $('description').placeholder,
     anchors: $('anchors').value || $('anchors').placeholder,
@@ -180,6 +182,22 @@ $('download').addEventListener('click', () => {
   }, 'image/png');
 });
 
+// Model picker: its note, allowed lengths, and whether anchors are restated.
+function applyModel() {
+  const m = MODELS[$('model').value];
+  const prev = Number($('seconds').value) || 6;
+  const pick = m.durations.reduce((a, b) => (Math.abs(b - prev) <= Math.abs(a - prev) ? b : a));
+  $('seconds').replaceChildren(
+    ...m.durations.map((d) => new Option(`${d} s`, String(d), d === pick, d === pick))
+  );
+  $('modelNote').textContent = m.note;
+  $('anchors').disabled = !m.anchors;
+  $('anchors').title = m.anchors ? '' : `${m.name}: the look comes from the reference, so describe only the action.`;
+  renderPrompt();
+  render();
+}
+$('model').addEventListener('change', applyModel);
+
 ['subject', 'description', 'anchors', 'action', 'camera', 'light', 'seconds'].forEach((id) =>
   $(id).addEventListener('input', renderPrompt)
 );
@@ -194,5 +212,4 @@ $('copy').addEventListener('click', async () => {
 });
 
 syncSwatches();
-renderPrompt();
-render();
+applyModel();
